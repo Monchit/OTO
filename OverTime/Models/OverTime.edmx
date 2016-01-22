@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OverTimeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="OverTimeModelStoreContainer">
+          <EntitySet Name="td_otdetail" EntityType="OverTimeModel.Store.td_otdetail" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="td_otdetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="empcode" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="ot_normal" Type="float" />
+          <Property Name="ot_holiday" Type="float" />
+          <Property Name="time" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="ot_description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="group_id" Type="int" Nullable="false" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OverTimeModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="OverTimeEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="td_otdetail" EntityType="OverTimeModel.td_otdetail" />
+        </EntityContainer>
+        <EntityType Name="td_otdetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int64" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="empcode" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="date" Nullable="false" Precision="0" />
+          <Property Type="Double" Name="ot_normal" />
+          <Property Type="Double" Name="ot_holiday" />
+          <Property Type="String" Name="time" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ot_description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="group_id" Nullable="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OverTimeModelStoreContainer" CdmEntityContainer="OverTimeEntities">
+          <EntitySetMapping Name="td_otdetail">
+            <EntityTypeMapping TypeName="OverTimeModel.td_otdetail">
+              <MappingFragment StoreEntitySet="td_otdetail">
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="ot_description" ColumnName="ot_description" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="ot_holiday" ColumnName="ot_holiday" />
+                <ScalarProperty Name="ot_normal" ColumnName="ot_normal" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="empcode" ColumnName="empcode" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

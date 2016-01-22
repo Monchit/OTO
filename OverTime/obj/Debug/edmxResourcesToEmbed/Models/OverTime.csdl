@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OverTimeModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="OverTimeEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="td_otdetail" EntityType="OverTimeModel.td_otdetail" />
+  </EntityContainer>
+  <EntityType Name="td_otdetail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Int64" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="empcode" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="date" Nullable="false" Precision="0" />
+    <Property Type="Double" Name="ot_normal" />
+    <Property Type="Double" Name="ot_holiday" />
+    <Property Type="String" Name="time" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ot_description" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="group_id" Nullable="false" />
+  </EntityType>
+</Schema>

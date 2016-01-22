@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OverTimeModelStoreContainer" CdmEntityContainer="OverTimeEntities">
+    <EntitySetMapping Name="td_otdetail">
+      <EntityTypeMapping TypeName="OverTimeModel.td_otdetail">
+        <MappingFragment StoreEntitySet="td_otdetail">
+          <ScalarProperty Name="group_id" ColumnName="group_id" />
+          <ScalarProperty Name="ot_description" ColumnName="ot_description" />
+          <ScalarProperty Name="time" ColumnName="time" />
+          <ScalarProperty Name="ot_holiday" ColumnName="ot_holiday" />
+          <ScalarProperty Name="ot_normal" ColumnName="ot_normal" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="empcode" ColumnName="empcode" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

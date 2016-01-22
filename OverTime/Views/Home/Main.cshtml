@@ -1,0 +1,179 @@
+﻿@{
+    ViewBag.Title = "Main";
+}
+
+<style type="text/css">
+    /*fix jTable*/
+    span.jtable-goto-page select, span.jtable-page-size-change select {
+        height: 25px;
+        width: 60px;
+        padding: 2px 2px;
+        margin-bottom:auto;
+    }
+    div.jtable-main-container table.jtable thead th {
+        text-align: center;
+    }
+    div.jtable-main-container > table.jtable > tbody > tr.jtable-data-row > td {
+        text-align: center;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#jTableMyOT').jtable({
+            title: 'My OT',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'date', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("MyOTList","Home")',
+                deleteAction: '@Url.Action("DeleteMyOT","Home")',
+                updateAction: '@Url.Action("UpdateMyOT","Home")',
+                createAction: '@Url.Action("CreateMyOT","Home")'
+            },
+            fields: {
+                id: { title: 'Id', key: true, list: false },
+                empcode: { title: 'Empcode', list: false, create: false, edit: false },
+                date: { title: 'Date', width: '15%', type: 'date', displayFormat: 'dd-mm-yy' },
+                time: { title: 'Time', width: '15%' },
+                ot_normal: { title: 'OT 1.5', width: '10%' },
+                ot_holiday: { title: 'OT 3.0', width: '10%' },
+                ot_description: { title: 'OT Description', width: '35%' }
+                //edit: {
+                //    title: 'Edit', width: '7%', visibility: 'fixed', //This column always will be shown
+                //    display: function (data) {
+                //        return $('<a href="#" class="otedit" data-emp="' + data.record.empcode + '" data-date="' + data.record.date + '"><i class="icon-edit"></i></a>');
+                //    }
+                //},
+                //del: {
+                //    title: 'Delete', width: '8%', visibility: 'fixed', //This column always will be shown
+                //    display: function (data) {
+                //        return $('<a href="#" class="otdelete" data-emp="' + data.record.empcode + '" data-date="' + data.record.date + '"><i class="icon-trash"></i></a>');
+                //    }
+                //}
+            }
+        });
+        //Load student list from server
+        $('#jTableMyOT').jtable('load');
+
+        @*//Datepicker Setting
+        $(".datepicker").datepicker({
+            dateFormat: 'dd-mm-yy'
+            //showOtherMonths: true,
+            //selectOtherMonths: true,
+            //showButtonPanel: true,
+            //minDate: new Date()//set minDate is today
+        });
+
+        $('.timepicker').timepicker({
+            stepMinute: 5
+        });
+
+        var startTimeTextBox = $('#txtTimeFrom');
+        var endTimeTextBox = $('#txtTimeTo');
+
+        $.timepicker.timeRange(
+            startTimeTextBox,
+            endTimeTextBox,
+            {
+                minInterval: (1000 * 60 * 30), // 30min
+                timeFormat: 'HH:mm',
+                stepMinute: 5
+                //start: {}, // start picker options
+                //end: {} // end picker options
+            }
+        );
+
+        $.validate({
+            form: '#formOT',
+            validateOnBlur: false,
+            showHelpOnFocus: false,
+            addSuggestions: false
+        });
+
+        $(document).on("click", ".otedit", function () {
+            var obj = new Object();
+            obj.emp = $(this).attr("data-emp");
+            obj.date = $(this).attr("data-date");
+            
+            $.post("@Url.Action("GetMyOT")", obj, function (data) {
+                //alert(data.time);
+                var res = data.time.split("-");
+                $("#txtDate").val(data.date);
+                //$("#txtTimeFrom").val(res[0]);
+                //$("#txtTimeTo").val(res[1]);
+                $("#txtOTNormal").val(data.ot_normal);
+                $("#txtOTHoliday").val(data.ot_holiday);
+                $("#txtDesc").val(data.ot_description);
+            });
+        });
+
+        $(document).on("click", ".otdelete", function () {
+
+        });*@
+
+    });
+</script>
+
+@*<form class="form-horizontal" name="formOT" id="formOT">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Add / Edit OT</legend>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="txtDate">Date :</label>
+  <div class="controls">
+    <input id="txtDate" name="txtDate" type="text" placeholder="" class="input-small datepicker" data-validation="required">
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="txtTimeFrom">Time From :</label>
+  <div class="controls">
+    <input id="txtTimeFrom" name="txtTimeFrom" type="text" placeholder="" class="input-small">
+    <i class="icon-minus icon-white"></i>
+    <input id="txtTimeTo" name="txtTimeTo" type="text" placeholder="" class="input-small">
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="txtOTNormal">OT 1.5 :</label>
+  <div class="controls">
+    <input id="txtOTNormal" name="txtOTNormal" type="text" placeholder="" class="input-small timepicker">
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="txtOTHoliday">OT 3.0 :</label>
+  <div class="controls">
+    <input id="txtOTHoliday" name="txtOTHoliday" type="text" placeholder="" class="input-small timepicker">
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="txtDesc">OT Description :</label>
+  <div class="controls">
+    <input id="txtDesc" name="txtDesc" type="text" placeholder="" class="input-xlarge">
+  </div>
+</div>
+
+<!-- Button (Double) -->
+<div class="control-group">
+  <label class="control-label" for="btnSubmit"></label>
+  <div class="controls">
+    <button id="btnSubmit" name="btnSubmit" type="submit" class="btn btn-primary">Submit</button>
+    <button id="btnClear" name="btnClear" type="reset" class="btn btn-danger">Clear/Cancel</button>
+  </div>
+</div>
+
+</fieldset>
+</form>*@
+
+<div id="jTableMyOT"></div>

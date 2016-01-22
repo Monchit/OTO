@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Print";
+}
+
+<style type="text/css">
+    /*fix jTable*/
+    span.jtable-goto-page select, span.jtable-page-size-change select {
+        height: 25px;
+        width: 60px;
+        padding: 2px 2px;
+        margin-bottom:auto;
+    }
+    div.jtable-main-container table.jtable thead th {
+        text-align: center;
+    }
+    div.jtable-main-container > table.jtable > tbody > tr.jtable-data-row > td {
+        text-align: center;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#jTableDailyOT').jtable({
+            title: 'Daily OT',
+            paging: true, //Enable paging
+            pageSize: 10, //Set page size (default: 10)
+            sorting: true, //Enable sorting
+            selecting: true, //Enable selecting
+            defaultSorting: 'date', //Set default sorting
+            actions: {
+                listAction: '@Url.Action("DailyOTList","Home")',
+            },
+            fields: {
+                empcode: { title: 'Empcode', list: true },
+                time: { title: 'Time', width: '15%' },
+                ot_normal: { title: 'OT 1.5', width: '5%' },
+                ot_holiday: { title: 'OT 3', width: '5%' },
+                ot_description: { title: 'OT Description', width: '35%' }
+            }
+        });
+        //Load student list from server
+        //$('#jTableDailyOT').jtable('load');
+        $('#btnSearch').click(function (e) {
+            //if (!$.validate({ form: 'formFilter' })) {
+            //    return false;
+            //} else {
+            e.preventDefault();
+            $('#jTableDailyOT').jtable('load', {
+                seldate: $('#selDate').val()
+            });
+            //}
+        });
+    });
+</script>
+
+<h2>Print</h2>
+
+<form class="form-inline">
+    Select Date : 
+    <select id="selDate" name="selDate" class="input-medium">
+      @foreach (var item in ViewBag.SelectDate)
+      {
+          <option>@item.Date.ToString("dd-MM-yyyy")</option>
+      }
+    </select>
+    <button id="btnSearch" name="btnSearch" class="btn btn-primary">Search</button>
+</form>
+
+<div id="jTableDailyOT"></div>
